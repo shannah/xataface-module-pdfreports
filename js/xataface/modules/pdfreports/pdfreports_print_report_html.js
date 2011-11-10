@@ -182,7 +182,7 @@
 			.get(0);
 		$(dlg).dialog({modal: true});
 		var format = $('.xf-ReportViewer-PagePanel').width()+'x'+$('.xf-ReportViewer-PagePanel').height();
-		if ( confirm('you sure?') ) pdfreports.domToPdf($('.xf-ReportViewer-wrapper').get(0), null, format, $('.xf-ReportViewer').attr('data-xf-reportviewer-reportid'));
+		pdfreports.domToPdf($('.xf-ReportViewer-wrapper').get(0), null, format, $('.xf-ReportViewer').attr('data-xf-reportviewer-reportid'));
 	});
 
 
