@@ -125,7 +125,7 @@
 				'-action': 'export_json',
 				'-table': 'xf_pdfreports_reports',
 				'report_id': '='+(params.id),
-				'--displayMethod': 'display',
+				'--displayMethod': 'val',
 				'-mode': 'browse'
 			
 			};
