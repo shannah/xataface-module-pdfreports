@@ -262,8 +262,6 @@
 				
 				if ( params.code == 200 ){
 					editor.viewer.unserialize(params.serializedReport);
-					//console.log(params.serializedReport);
-					//console.log("In loadReportById viewing report after loading serialized");
 					
 					editor.viewer.update();
 					if ( editor.viewer.editable ){
@@ -278,16 +276,11 @@
 					editor.lastSave = new Date();
 					editor.update();
 					
-					//console.log(editor.viewer.serialize());
-					//console.log(editor.viewer.el.get(0));
-					//console.log(editor.viewer.pages[0].children);
-					//console.log(editor.viewer.serialize());
 					editor.loadSchemaById(editor.viewer.schemaId, callback, failCallback);
 					editor.saveVersion = params.version;
 					editor.editVersion = params.version;
-					//callback.call(editor);
+					
 				} else {
-					//console.log(params.error);
 					failCallback.call(editor, params);
 				}
 			}
@@ -410,7 +403,7 @@
 		params.version = editor.editVersion;
 		
 		params.callback = function(res){
-						//console.log(res);
+						
 			if ( !res || !res.id || res.error){
 				failCallback.call(editor, res);
 				return;
@@ -1188,8 +1181,7 @@
 							callback: function(params){
 							
 								// handle the callback from loading the schema.
-								//console.log('Loading schema');
-								//console.log(params);
+
 								var tempSchema = new DataSchema();
 								tempSchema.unserialize(params.serializedSchema);
 								self.editor.setDataSchema(tempSchema);

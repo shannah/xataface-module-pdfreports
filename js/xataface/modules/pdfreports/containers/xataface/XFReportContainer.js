@@ -76,15 +76,10 @@
 				
 				$.get(DATAFACE_SITE_HREF, q, function(res){
 					if ( typeof(res) != 'object' ){
-						//console.log('Expected object but received something else:');
-						//console.log(res);
 						throw 'Failed to load new settings because of a server error.  Please check the error log.';
 						
 					}
 					if ( !res.length ){
-						//console.log('Failed to load settings after changing them.  None found.');
-						//console.log(q);
-						//console.log(res);
 						throw 'Failed to load new settings due to a server error.  Please check the error log for details.';
 					}
 					
@@ -129,18 +124,13 @@
 				'-mode': 'browse'
 			
 			};
-			//console.log('sending');
-			//console.log(q);
 			$.get(DATAFACE_SITE_HREF, q, function(res){
-				//console.log('here');
 				try {
 					// res should be an array of objects
 					
 					if ( typeof(res) != 'object' ){
-						//console.log(typeof(res));
-						//console.log(res);
 						throw 'Error occurred loading report. Expected JSON array but received something else. Possibly a permissions issue or a server side error.';
-						//return;
+						
 					}
 					
 					var report = res[0];
@@ -155,7 +145,6 @@
 					if ( !tpl ){
 						// No template has yet been created so we need to create one
 						// now.
-						//console.log(report);
 						var tempReport = new pdfreports.ReportViewer({
 							pdfUrl: report.background_pdf,
 							schemaId: report.action_table,
@@ -167,14 +156,12 @@
 						
 					
 					} else {
-						//console.log(report.report_template);
 						tplDom = $(report.report_template).get(0);
 						var tempReport = new pdfreports.ReportViewer({
 							pdfUrl: report.background_pdf,
 							schemaId: report.action_table,
 							reportId: report.report_id
 						});
-						//console.log(tplDom);
 						tempReport.unserialize(tplDom);
 						tempReport.schemaId = report.action_table;
 						tempReport.reportId = report.report_id;
@@ -218,7 +205,6 @@
 			
 				table: 'xf_pdfreports_reports',
 				callback: function(values){
-					//console.log(values);
 					var breakIt = false;
 					$.each(values, function(k,label){
 						if ( breakIt ) return;
@@ -230,10 +216,6 @@
 						params2 = $.extend({}, params);
 						
 						params2.id=k;
-						////console.log('Got it .. now loading');
-						////console.log(params2);
-						////console.log('self');
-						////console.log(self);
 						self.load(params2);
 						breakIt = true;
 						
@@ -276,7 +258,7 @@
 				try {
 				
 					if ( typeof(res) != 'object' ){
-						//console.log(res);
+						
 						throw 'Failed to load schema.  Expected result to be an object but received something else.';
 					}
 					if ( res.code != 200 ){
@@ -286,12 +268,8 @@
 					} else {
 						
 						var root = new DataSchema();
-						////console.log('Converting schema: ');
-						////console.log(res);
 						$.each(res.schema, function(idx, schema){
 							if ( schema['data-key'] != 'relationships' ){
-								////console.log('Children: ');
-								////console.log(schema.children);
 								
 								$.each(schema.children, function(idx, iSchema){
 									var fieldSchema = new DataSchema({
@@ -301,8 +279,6 @@
 										isField: true
 									
 									});
-									////console.log('Children: ');
-									////console.log(iSchema.children);
 									$.each(iSchema.children, function(idx, fSchema){
 										var funcSchema = new DataSchema({
 											name: fSchema.data,
@@ -318,8 +294,6 @@
 									
 								});
 							} else {
-								////console.log('Children: ');
-								////console.log(schema.children);
 								$.each(schema.children, function(idx, rSchema){
 									
 									var relSchema = new DataSchema({
@@ -329,8 +303,6 @@
 										
 									});
 									
-									////console.log('Children: ');
-									////console.log(rSchema.children);
 									$.each(rSchema.children, function(idx, rfSchema){
 										var relFieldSchema = new DataSchema({
 											name: rfSchema.attr['xf-htmlreports-fieldname'],
@@ -338,8 +310,6 @@
 											macro: rfSchema.attr['xf-htmlreports-macro'],
 											isField: true
 										});
-										////console.log('Children: ');
-										////console.log(rfSchema.children);
 										if ( rfSchema.children ){ 
 											$.each(rfSchema.children, function(idx, rffSchema){
 												var funcSchema = new DataSchema({
@@ -364,7 +334,6 @@
 							
 						});
 						
-						//console.log(root);
 						loadSchemaCallback({
 							code: 200,
 							serializedSchema: root.serialize()
@@ -372,7 +341,6 @@
 					
 					}
 				} catch (e){
-					//console.log(e);
 					loadSchemaCallback({
 						code: 500,
 						error: e
@@ -414,7 +382,6 @@
 						};
 						if ( res.code ) p.code = res.code;
 						if ( p.code != 200 ) {
-							//console.log(res);
 							p.error = 'Server Error.  Check log.';
 						} else {
 							// recordId is a xataface record id (e.g. tablename?key1=val1)
@@ -428,7 +395,7 @@
 						params.callback.call(this, p);
 						
 					} catch (e){
-						//console.log(e);
+						
 					
 						var p = {
 							code: 500,

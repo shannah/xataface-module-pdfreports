@@ -149,7 +149,7 @@
 				
 				
 			}).each(function(){
-				console.log(this);
+				
 			});
 			$(pageElement).children('.xf-ReportViewer-Portal-childrenPane').children('li').children('.xf-ReportViewer-PageElement').each(function(){
 				decoratePageElement(this, page, report);
@@ -176,7 +176,7 @@
 	$(link).click();
 	*/
 	$(document).ready(function(){
-		//console.log($('.xf-ReportViewer').html());
+		
 		var dlg = $('<div>').
 			append('<img src="'+DATAFACE_URL+'/images/progress.gif"/> Generating Report..  Please wait...')
 			.get(0);

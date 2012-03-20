@@ -205,7 +205,7 @@
 		this.schemaId = $(el).attr(pre+'schemaId');
 		this.reportId = $(el).attr(pre+'reportId');
 		this.name = $(el).attr(pre+'name');
-		//console.log(this.pages);
+		
 		var pages = $.merge([], this.pages);
 		$.each(pages, function(){
 			self.removePage(this);
@@ -746,8 +746,7 @@
 		});
 		
 		$(el).children('.xf-ReportViewer-PageElement').each(function(){
-			//console.log("Adding page element");
-			//console.log(this);
+			
 			var pel = self
 				.reportViewer
 					.newPageElement(
@@ -759,12 +758,10 @@
 			pel.page = self;
 			
 			pel.unserialize(this);
-			//console.log("Build Page element");
-			//console.log(pel);
+			
 			self.addElement(pel);
 			
-			//console.log("Page Now");
-			//console.log(self);
+			
 		});
 		$(this).trigger('afterUnserialize.PagePanel', {'in':el});
 		
@@ -895,7 +892,7 @@
 		});
 		
 		
-		//console.trace();
+		
 		$.each(this.children, function(){
 		
 			this.update();
@@ -1016,8 +1013,7 @@
 			 * Event fired when element is finished being moved by a drag
 			 */
 			.bind('elementMoved', function(e, d){
-				//alert(parseFloat($(this).css('left')));
-				//console.log(self);
+				
 				self.x = parseFloat($(this).css('left'))/self.page.zoom;
 				self.y = parseFloat($(this).css('top'))/self.page.zoom;
 
@@ -1067,7 +1063,9 @@
 							
 						});
 					} catch (e){
-						console.log(e);
+						try {
+							console.log(e);
+						} catch (e){}
 					}
 				
 					e.preventDefault();
@@ -1284,7 +1282,7 @@
 	 */
 	function PageElement_update(){
 	
-		//console.log("In PageElement_update");
+		
 		$(this.el).css({
 			left: this.x*this.page.zoom,
 			top: this.y*this.page.zoom,
