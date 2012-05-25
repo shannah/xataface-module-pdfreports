@@ -121,6 +121,9 @@
 				position: 'absolute',
 				top: $(pageElement).attr(pePrefix+'y')+u,
 				left: $(pageElement).attr(pePrefix+'x')+u,
+				padding: 0,
+				margin: 0,
+				'line-height': '1em',
 				border: '2pt solid transparent',
 				'font-weight': ($(pageElement).attr(pePrefix+'isBold') == 'true') ? 'bold':'normal',
 				'font-style': ($(pageElement).attr(pePrefix+'isItalic') == 'true') ? 'italic':'normal',
@@ -149,7 +152,7 @@
 				
 				
 			}).each(function(){
-				
+				//console.log(this);
 			});
 			$(pageElement).children('.xf-ReportViewer-Portal-childrenPane').children('li').children('.xf-ReportViewer-PageElement').each(function(){
 				decoratePageElement(this, page, report);
