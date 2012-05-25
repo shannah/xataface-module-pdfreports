@@ -1,6 +1,6 @@
 <?php
 /*
- * Xataface Translation Memory Module
+ * Xataface PDF Reports Module
  * Copyright (C) 2011  Steve Hannah <steve@weblite.ca>
  * 
  * This library is free software; you can redistribute it and/or
@@ -18,6 +18,11 @@
  * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA  02110-1301, USA.
  *
+ */
+ 
+/**
+ * @brief Installer file that manages updates using the standard Xataface module update
+ * mechanism.  It also handles the installation the first time the module is installed.
  */
 class modules_pdfreports_installer {
 	
