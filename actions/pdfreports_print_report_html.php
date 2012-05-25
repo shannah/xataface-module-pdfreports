@@ -1,4 +1,41 @@
 <?php
+/*
+ * Xataface PDF Reports Module
+ * Copyright (C) 2011  Steve Hannah <steve@weblite.ca>
+ * 
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ * 
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Library General Public
+ * License along with this library; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
+ * Boston, MA  02110-1301, USA.
+ *
+ */
+/**
+ * @brief Action that prints a PDF report.  This action first lays out the report in HTML
+ *	but displays a dialog message saying "Generating Report.... Please wait" while it passes
+ * the placement of the report data back to the pdfreports_jquery_pdf action to be converted
+ * into a PDF.
+ *
+ * @par POST Parameters
+ * 
+ * @param string --templateContent The serialized template to render.  If this is provided (it's optional)
+ *	it will override the template that is currently stored in the report specified.
+ * @param int --report-id The ID of the report to display.  This corresponds with the report_id column
+ * 	of the xf_pdfreports_reports table.  This may be omitted if the alternate --report-name parameter is specified.
+ * @param string --report-name The name of the report to display.  This corresponds with the action_name
+ * 	column of the xf_pdfreports_reports table.
+ * @returns This will display a progress dialog, then will redirect to the actual generated PDF once
+ * the report has been generated.
+ */
 class actions_pdfreports_print_report_html {
 
 	function handle($params){

@@ -1,4 +1,7 @@
 <?php
+/**
+ * Not currently used.
+ */
 class actions_pdfreports_edit_report {
 	function handle($params){
 		$context = array();
