@@ -24,7 +24,7 @@
  * @param string data The HTML data (produced by the jquery.pdf.js library that specifieds the 
  * content to layout on the report.
  *
- * @returns text/json A JSON data structure with a status code and a URL where the generated PDF can be
+ * @returns application/json A JSON data structure with a status code and a URL where the generated PDF can be
  * 	downloaded.  The structure follows the following format:
  * @code
  *	{
