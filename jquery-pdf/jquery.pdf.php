@@ -51,7 +51,7 @@ if (get_magic_quotes_gpc()) {
 
 
 error_reporting(E_ALL);
-ini_set('display_errors','on');
+//ini_set('display_errors','on');
 //require_once 'alpha-fpdf.php';
 require_once 'modules/pdfreports/jquery-pdf/tcpdf/tcpdf.php';
 require_once 'modules/pdfreports/jquery-pdf/fpdi/fpdi.php';
@@ -1878,8 +1878,11 @@ if ( @$_REQUEST['data'] ){
 	error_log("Starting build: ".time());
 	$ret = $jpdf->build();
 	error_log("Finished build: ".time());
-	$fileurl = "http".(@$_SERVER['HTTPS']=='on'?'s':'')."://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?-action=pdfreports_jquery_pdf&file='.urlencode(base64_encode($ret));
 	
+	$fileurl = "http".(@$_SERVER['HTTPS']=='on'?'s':'')."://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?-action=pdfreports_jquery_pdf&file='.urlencode(base64_encode($ret));
+	if ( @$_REQUEST['--disposition'] ){
+		$fileurl .= '&--disposition='.urlencode($_REQUEST['--disposition']);
+	}
 	if ( @$_GET['req'] ){
 		$response = array(
 			'success'=>true,
@@ -1897,9 +1900,13 @@ if ( @$_REQUEST['data'] ){
 	$ret = jquery_pdf::getPDFAsString(base64_decode($_GET['file']));
 	//echo $ret;
 	//print_r($_GET);
+	$disposition = "inline";
+	if ( @$_GET['--disposition'] == 'attachment' ){
+		$disposition='attachment';
+	}
 	if ( $ret ){
 		header("Content-type: application/pdf");
-		header('Content-Disposition: inline; filename="GeneratedPDF.pdf"');
+		header('Content-Disposition: '.$disposition.'; filename="GeneratedPDF.pdf"');
 		header('Content-Length: '.strlen($ret));
 		header('Connection:close');
 		echo $ret;

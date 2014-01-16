@@ -185,7 +185,12 @@
 			.get(0);
 		$(dlg).dialog({modal: true});
 		var format = $('.xf-ReportViewer-PagePanel').width()+'x'+$('.xf-ReportViewer-PagePanel').height();
-		pdfreports.domToPdf($('.xf-ReportViewer-wrapper').get(0), null, format, $('.xf-ReportViewer').attr('data-xf-reportviewer-reportid'));
+		
+		var rparams = {};
+		if ( window.JQUERY_PDF_RPARAMS ){
+			$.extend(rparams, window.JQUERY_PDF_RPARAMS);
+		}
+		pdfreports.domToPdf($('.xf-ReportViewer-wrapper').get(0), null, format, $('.xf-ReportViewer').attr('data-xf-reportviewer-reportid'), rparams);
 	});
 
 

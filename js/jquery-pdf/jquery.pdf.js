@@ -208,19 +208,19 @@
 		var pdfreports = XataJax.load('xataface.modules.pdfreports');
 		pdfreports.domToPdf = domToPdf;
 		
-		function domToPdf(el, orientation, format, report_id){
-		
+		function domToPdf(el, orientation, format, report_id, rparams){
+			rparams = rparams || {};
 			orientation = orientation ||'P';
 			format  =  format || 'Letter';
 			report_id = report_id || '';
-		
-			$(el).pdf({
+			$.extend(rparams, {
 				path: XF_PDF_REPORTS_URL+'/jquery-pdf/',
 				orientation: orientation,
 				format: format,
 				pagesWide: 1,
 				report_id: report_id
 			});
+			$(el).pdf(rparams);
 		
 		}
 	
@@ -603,6 +603,9 @@
 					'-action' : 'pdfreports_jquery_pdf'
 					
 				};
+				if ( jpdf.disposition ){
+					params['--disposition'] = jpdf.disposition;
+				}
 				
 				
 				if ( jpdf.report_id ) params.report_id = jpdf.report_id;
@@ -612,10 +615,25 @@
 					var parts = data.split('\n');
 					if ( parts[0] != 'OK' ){
 						alert("Error generating PDF file");
+						if ( window.history.length > 1 ){
+							window.history.back();
+						} else {
+							window.close();
+						}
 					} else {
 						// Redirect to the location of the generated PDF file.
-						
-						window.location.href=parts[1];
+						window.location.replace(parts[1]);
+						if ( jpdf.disposition == 'attachment' ){
+							window.setTimeout(function(){
+								if ( window.history.length > 1 ){
+									//alert('trying to go back');
+									window.history.back();
+								} else {
+									//alert('trying to close');
+									window.close();
+								}
+							}, 1000);
+						}
 					}
 					$('#jquery-pdf-waiting-indicator').remove();
 				};

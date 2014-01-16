@@ -93,6 +93,11 @@ class actions_pdfreports_print_report_html {
 		Dataface_Application::getInstance()
 			->addHeadContent('<script>XF_PDF_REPORTS_URL='.json_encode(df_absolute_url($mod->getBaseURL())).';</script>');
 		
+		if ( @$_REQUEST['--disposition'] == 'attachment'){
+			Dataface_Application::getInstance()
+				->addHeadContent('<script>JQUERY_PDF_RPARAMS={disposition:"attachment"};</script>');
+		}
+		
 		df_register_skin('pdfreports', dirname(__FILE__).'/../templates');
 		df_display(array('reportHtml'=>$html), 'xataface/modules/pdfreports/pdfreports_print_report_html.html');
 		
